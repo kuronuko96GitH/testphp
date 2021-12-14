@@ -44,9 +44,14 @@ if(isset($_POST['UpdScore'])) {
             $err_msg = "";
           }
 
-          // DBに接続するためのユーザー名やパスワードを指定
-          $dsn = 'pgsql:dbname=sampledb;host=myapp-db';
-          $db = new PDO($dsn, 'sample-user', 'hi2mi4i6');
+          // Herokuサーバー接続用
+          $dbinfo = parse_url(getenv('DATABASE_URL'));
+          $dsn = 'pgsql:host=' . $dbinfo['host'] . ';dbname=' . substr($dbinfo['path'], 1);
+          $db = new PDO($dsn, $dbinfo['user'], $dbinfo['pass']);
+
+// DBに接続するためのユーザー名やパスワードを指定
+//        $dsn = 'pgsql:dbname=sampledb;host=myapp-db';
+//        $db = new PDO($dsn, 'sample-user', 'hi2mi4i6');
 
           $sql = 'update users set score2 = ? where username = ?';
 
