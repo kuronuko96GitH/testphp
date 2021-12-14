@@ -1,0 +1,5 @@
+<?
+echo 'phpのテストです。<br>';
+
+phpinfo();
+?>
