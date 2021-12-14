@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+.gamebox {
+  font-size: 1.5em;
+  text-align: center; /* テキストの中央寄せ */
+  padding: 0.5em 1em;
+  margin: 2em 0;
+  background: #000; /*背景色は、黒 */
+  border: solid 3px #6091d3; /*枠線 青系*/
+  border-radius: 10px; /*角の丸み*/
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22); /*テキストボックスに影をつける*/
+}
+
+
+#game_targetLeft {
+  color: red; /*左側の文字色は、赤*/
+}
+
+
+#game_target {
+  color: #FFF; /*右側の文字色は、白*/
+}
+
