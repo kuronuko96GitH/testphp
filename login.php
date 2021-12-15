@@ -28,7 +28,7 @@ $db = new PDO($dsn, $dbinfo['user'], $dbinfo['pass']);
 		$stmt = null;
 		$db = null;
 
-        if ($result[0] != 0) {
+    if ($result['id'] !== null) {
             //DBのユーザー情報をセッションに保存
 //            session_regenerate_id(true); //session_idを新しく生成し、置き換える
             $_SESSION['id'] = $result['id'];
