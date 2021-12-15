@@ -9,7 +9,7 @@ $db = new PDO($dsn, $dbinfo['user'], $dbinfo['pass']);
 //        $dsn = 'pgsql:dbname=sampledb;host=myapp-db';
 //        $db = new PDO($dsn, 'sample-user', 'hi2mi4i6');
 
-$sql = 'SELECT * FROM users';
+$sql = 'SELECT * FROM users ORDER BY id';
 echo '<pre>';
 foreach ($db->query($sql) as $row) {
   var_dump($row);
