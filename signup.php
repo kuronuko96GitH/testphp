@@ -24,7 +24,8 @@ if(isset($_POST['signup'])) {
 
       //パスワードの正規表現
       if (preg_match('/\A(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}+\z/i', $_POST['password'])) {
-        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        // ※今回はテストデータなので、暗号化をしてデータベースには登録しない。
+//        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
       } else {
         $err_msg = "パスワードは半角英数字をそれぞれ<br/>1文字以上含んだ8文字以上で設定してください。";
         $chk_flg = false;
@@ -40,13 +41,12 @@ if(isset($_POST['signup'])) {
     // 入力項目のチェックが問題無い場合。
 
     try {    
-//		$db = new PDO('mysql:host=localhost; dbname=データベース名','ユーザー名','パスワード');
-// Herokuサーバー接続用
+          // Herokuサーバー接続用
           $dbinfo = parse_url(getenv('DATABASE_URL'));
           $dsn = 'pgsql:host=' . $dbinfo['host'] . ';dbname=' . substr($dbinfo['path'], 1);
           $db = new PDO($dsn, $dbinfo['user'], $dbinfo['pass']);
 
-    // DBに接続するためのユーザー名やパスワードを指定
+// DBに接続するためのユーザー名やパスワードを指定
 //        $dsn = 'pgsql:dbname=sampledb;host=myapp-db';
 //        $db = new PDO($dsn, 'sample-user', 'hi2mi4i6');
 
@@ -133,10 +133,7 @@ if(isset($_POST['signup'])) {
             <div class="col-5">
               <input type="submit" name="signup" class="btn btn-primary" value="新規登録">  
             </div>
-            <div class="col-1">
-            </div>
-            <div class="col-6">
-              <a class="btn btn-secondary" href="login.php">ログインへ</a>
+            <div class="col-7">
             </div>
         </div>
 <?php

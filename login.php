@@ -10,13 +10,12 @@ if(isset($_POST['login'])) {
 	$password = $_POST['password'];
 
 	try {
-//		$db = new PDO('mysql:host=localhost; dbname=データベース名','ユーザー名','パスワード');
-// Herokuサーバー接続用
-$dbinfo = parse_url(getenv('DATABASE_URL'));
-$dsn = 'pgsql:host=' . $dbinfo['host'] . ';dbname=' . substr($dbinfo['path'], 1);
-$db = new PDO($dsn, $dbinfo['user'], $dbinfo['pass']);
+    // Herokuサーバー接続用
+    $dbinfo = parse_url(getenv('DATABASE_URL'));
+    $dsn = 'pgsql:host=' . $dbinfo['host'] . ';dbname=' . substr($dbinfo['path'], 1);
+    $db = new PDO($dsn, $dbinfo['user'], $dbinfo['pass']);
 
-    // DBに接続するためのユーザー名やパスワードを指定
+// DBに接続するためのユーザー名やパスワードを指定
 //        $dsn = 'pgsql:dbname=sampledb;host=myapp-db';
 //        $db = new PDO($dsn, 'sample-user', 'hi2mi4i6');
 
@@ -100,7 +99,7 @@ $db = new PDO($dsn, $dbinfo['user'], $dbinfo['pass']);
                     <div class="form-group">
                         <label>パスワード：</label>
 <?php
-                        echo '<input type="password" class="form-control" name="password" value="'.$password.'">'
+                        echo '<input type="password" class="form-control" name="password">'
 ?>
                     </div>
                 </form>
