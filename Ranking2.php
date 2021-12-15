@@ -43,9 +43,19 @@ $cnt = 0;
     $cnt++; // データが取得できた件数だけ、順位をカウントする。
 
     echo '<tr>';
-    echo '<td class="text-white">'.$cnt.'</td>';
-    echo '<td class="text-white">'.$row['username'].'</td>';
-    echo '<td class="text-white">'.$row['score2'].'</td>';
+
+    if($_SESSION['username'] === $row['username']) {
+      // ランキング表にログインユーザーがいた場合、背景色を変える。
+      echo '<td class="text-white bg-secondary">'.$cnt.'</td>';
+      echo '<td class="text-white bg-secondary">'.$row['username'].'</td>';
+      echo '<td class="text-white bg-secondary">'.$row['score2'].'</td>';
+
+    } else {
+      echo '<td class="text-white">'.$cnt.'</td>';
+      echo '<td class="text-white">'.$row['username'].'</td>';
+      echo '<td class="text-white">'.$row['score2'].'</td>';
+    }
+
     echo '</tr>';
     
   }
