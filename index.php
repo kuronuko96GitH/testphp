@@ -8,10 +8,14 @@ $title = '';
                         <a class="btn btn-secondary" href="TypingGame.php">タイピングゲーム</a>
                         <a class="btn btn-secondary" href="QuizGame.php">英単語クイズゲーム</a>
                        
-                        <h3 class="text-white-50 mx-auto mt-2">ランキング登録をする場合は、ログインをして下さい。</h3>
+                        <h4 class="text-white-50 mx-auto mt-2">ランキング登録をする場合は、ログインをして下さい。</h4>
                         <a class="btn btn-primary" href="login.php">ログイン</a>
-                        <h3 class="text-white-50 mx-auto mt-2">テストユーザー：てすと</h3>
-                        <h3 class="text-white-50 mx-auto mt-2">パスワード：test1234</h3>
+                        <h4 class="text-white-50 mx-auto mt-2">テストユーザー：てすと</h4>
+                        <h4 class="text-white-50 mx-auto mt-2">パスワード：test1234</h4>
+
+                        <br>
+                        <br>
+                        <h3 class="text-white-50 mx-auto mt-2">★（Ruby版）ポートフォリオは<a href="https://kuronuko9646rubygames.herokuapp.com" target="_blank" rel="noopener">こちらから</a></h3>
                     </div>
 
 <?php

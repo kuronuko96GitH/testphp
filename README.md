@@ -26,9 +26,10 @@
 
 # 開発環境
 ◆開発言語・環境
-* docker
+* docker(ローカル・開発用の仮想環境)
 * PHP
 * JavaScript
 * PostgreSQL (ローカル・本番環境データベース)
 * GitHub (ソースコード管理)
 * SourceTree (ソースコード管理)
+* Visual Studio Code (ソースコードエディタ)

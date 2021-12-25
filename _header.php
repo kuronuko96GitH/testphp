@@ -18,6 +18,7 @@ session_start();
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
         <link href="css/game.css" rel="stylesheet" />
+
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -30,10 +31,30 @@ session_start();
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="TypingGame.php">タイピングゲーム</a></li>
-                        <li class="nav-item"><a class="nav-link" href="Ranking1.php">ランキング表【タイピング】</a></li>
-                        <li class="nav-item"><a class="nav-link" href="QuizGame.php">クイズゲーム</a></li>
-                        <li class="nav-item"><a class="nav-link" href="Ranking2.php">ランキング表【クイズ】</a></li>
+                        
+                        <li class="nav-item"><a class="nav-link" href="aboutme.php">About me</a></li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            タイピングゲーム
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="TypingGame.php">タイピングゲーム</a></li>
+                                <li><a class="dropdown-item" href="Ranking1.php">ランキング表</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            クイズゲーム
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="QuizGame.php">クイズゲーム</a></li>
+                                <li><a class="dropdown-item" href="Ranking2.php">ランキング表</a></li>
+                            </ul>
+                        </li>
+
+
 <?php
 //  if (isset($_SESSION['id'])) {//ログインしているとき
     if (isset($_SESSION['username'])) {//ログインしているとき
