@@ -16,6 +16,7 @@ $title = '';
                         <br>
                         <br>
                         <h3 class="text-white-50 mx-auto mt-2">★（Ruby版）ポートフォリオは<a href="https://kuronuko9646rubygames.herokuapp.com" target="_blank" rel="noopener">こちらから</a></h3>
+                        <h3 class="text-white-50 mx-auto mt-2">★（GitHub）公開してるソースコードは<a href="https://github.com/kuronuko96GitH/testphp" target="_blank" rel="noopener">こちらから</a></h3>
                     </div>
 
 <?php

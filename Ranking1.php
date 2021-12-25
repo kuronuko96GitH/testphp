@@ -6,7 +6,7 @@ $cnt = 0;
 ?>
       <div class="text-white">
         <div align="center">
-        <p class="display-5">ランキング表(TOP10)</p>
+        <p class="display-5">ランキング表</p>
       </div>
 
       <div class="col-15 ml-3">
@@ -26,19 +26,46 @@ $cnt = 0;
   $dsn = 'pgsql:host=' . $dbinfo['host'] . ';dbname=' . substr($dbinfo['path'], 1);
   $db = new PDO($dsn, $dbinfo['user'], $dbinfo['pass']);
 
-// DBに接続するためのユーザー名やパスワードを指定
-//        $dsn = 'pgsql:dbname=sampledb;host=myapp-db';
-//        $db = new PDO($dsn, 'sample-user', 'hi2mi4i6');
-
-  // SELECT文を変数に格納（上位１０名のみを表示する）
-  $sql = "SELECT username, score FROM users ORDER BY score DESC LIMIT 10";
-//$sql = "SELECT username, score FROM users ORDER BY score DESC";
+  // SELECT文を変数に格納(件数を取得する)
+  $sql = "SELECT count(*) FROM users";
 
   // SQLステートメントを実行し、結果を変数に格納
   $stmt = $db->query($sql);
-  
+  // fetchColumn()…１レコードを取り出しつつ、１カラムだけ取り出す処理。
+  $ranking_cnt = $stmt->fetchColumn(); // 取得したデータの総件数
+
+
+  // 定数を設定
+  define('MAXCNT','10'); // 1ページに表示できる最大件数
+ 
+  $max_page = ceil($ranking_cnt / MAXCNT); // トータルページ数（※ceilは小数点を切り捨てる関数）
+   
+  if(!isset($_GET['page_id'])){ // $_GET['page_id'] はURLに渡された現在のページ数
+      $now = 1; // 設定されてない場合は1ページ目にする
+  }else{
+      $now = $_GET['page_id'];
+  }
+   
+  $start_no = ($now - 1) * MAXCNT; // 配列の何番目から取得すればよいか
+  $cnt = $start_no;
+ 
+  // SELECT文を変数に格納（上位１０名のみを表示する）
+//  $sql = "SELECT username, score FROM users ORDER BY score DESC LIMIT 10";
+//  $sql = "SELECT username, score FROM users ORDER BY score DESC";
+  $sql = "SELECT username, score FROM users ORDER BY score DESC LIMIT 10 offset :limitcnt";
+
+  // SQLステートメントを実行し、結果を変数に格納  
+  $stmt = $db->prepare($sql);
+  $stmt->bindValue(":limitcnt", $start_no, PDO::PARAM_INT);
+  $stmt->execute();
+
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+
+
   // foreach文で配列の中身を一行ずつ出力
-  foreach ($stmt as $row) {
+  foreach ($result as $row) {
 
     $cnt++; // データが取得できた件数だけ、順位をカウントする。
 
@@ -64,6 +91,15 @@ $cnt = 0;
             </tbody>
           </table>
         </div>
+
+      <h3>
+        <?php for ($x=1; $x <= $max_page ; $x++) {
+          // ページ数を表示する。
+        ?> 
+          <a href="?page_id=<?php echo $x ?>"><?php echo $x; ?></a>
+        <?php } ?>
+      </h3>
+
       </div>
     
 
