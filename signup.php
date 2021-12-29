@@ -53,9 +53,6 @@ if(isset($_POST['signup'])) {
           $stmt->execute(array($username));
           $result = $stmt->fetch();
       
-          $stmt = null;
-          $db = null;
-      
           if ($result['username'] !== null) {
             //同じユーザー名が存在する。
             $err_msg = "そのユーザー名は、既に登録されています。";
@@ -73,11 +70,7 @@ if(isset($_POST['signup'])) {
     // 入力項目のチェックが問題無い場合。
 
     try {    
-  //		$db = new PDO('mysql:host=localhost; dbname=データベース名','ユーザー名','パスワード');
-          // DBに接続するためのユーザー名やパスワードを指定
-          $dsn = 'pgsql:dbname=sampledb;host=myapp-db';
-          $db = new PDO($dsn, 'sample-user', 'hi2mi4i6');
-
+      
           $sql = 'insert into users(username,password) values(?,?)';
           $stmt = $db->prepare($sql);
           $stmt->execute(array($username,$password));
