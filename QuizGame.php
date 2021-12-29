@@ -3,9 +3,9 @@ include('_header.php');
 $result_msg = "";
 $err_msg = "";
 
-if ($_SESSION['score2'] === null || $_SESSION['score2'] === '') {
+if ($_SESSION['score3'] === null || $_SESSION['score3'] === '') {
   // ログインがされてない場合は、セッション情報のスコアに０を設定する。
-  $_SESSION['score2'] = 0;
+  $_SESSION['score3'] = 0;
 }
   
 if(isset($_POST['UpdScore'])) {
@@ -15,7 +15,7 @@ if(isset($_POST['UpdScore'])) {
     $result_msg = "";
     $err_msg = "ランキングに登録する場合は、ログインをして下さい。";
 
-  } elseif( $_POST['game_score'] <= $_SESSION['score2'] ) {
+  } elseif( $_POST['game_score'] <= $_SESSION['score3'] ) {
   // 前回のハイスコアを更新できなかった場合は、スコア更新ボタンを押してもエラメッセージを出す。
     $result_msg = "";
     $err_msg = "ハイスコアが更新されてないため、ランキング表に登録できませんでした。";
@@ -24,19 +24,19 @@ if(isset($_POST['UpdScore'])) {
     $result_msg = "";
     $err_msg = "";
 
-//    echo '$_SESSION1:'.$_SESSION['score2'];
+//    echo '$_SESSION1:'.$_SESSION['score3'];
 //    echo '<br/>';
 
     $username = $_SESSION['username'];
   //  $password = $_POST['password'];
-    $_SESSION['score2'] = $_POST['game_score'];
+    $_SESSION['score3'] = $_POST['game_score'];
     $score = $_POST['game_score'];
 
     try {
 
   //    echo 'デバッグ';
   //    echo '<br/>';
-//  echo '$_SESSION2:'.$_SESSION['score2'];
+//  echo '$_SESSION2:'.$_SESSION['score3'];
 
   //  if (isset($_SESSION['id'])) {//ログインしているとき
           if (isset($_SESSION['username'])) {//ログインしているとき
@@ -49,11 +49,8 @@ if(isset($_POST['UpdScore'])) {
           $dsn = 'pgsql:host=' . $dbinfo['host'] . ';dbname=' . substr($dbinfo['path'], 1);
           $db = new PDO($dsn, $dbinfo['user'], $dbinfo['pass']);
 
-// DBに接続するためのユーザー名やパスワードを指定
-//        $dsn = 'pgsql:dbname=sampledb;host=myapp-db';
-//        $db = new PDO($dsn, 'sample-user', 'hi2mi4i6');
-
-          $sql = 'update users set score2 = ? where username = ?';
+          // クイズゲームは、ゲームコード『３』のデータを更新する。
+          $sql = 'update games set score = ?, updated_at = CURRENT_TIMESTAMP where username = ? and gamecode = 3';
 
           $stmt = $db->prepare($sql);
           $stmt->execute(array($score,$username));
@@ -70,7 +67,7 @@ if(isset($_POST['UpdScore'])) {
 ?>
             <div class="text-white">
                 <div align="center">
-                  <p class="display-5">― 英単語クイズゲーム ―</p>
+                  <p class="display-6">― 英単語クイズゲーム ―</p>
                 </div>
 
                 <div class="gamebox">
@@ -79,25 +76,27 @@ if(isset($_POST['UpdScore'])) {
 
                 <div>
                   <input type="button" class="btn btn-primary" value="click to start" id="start_button">
+                  <br>
+                  <br>
                   <h3 class="text-white">正しい英単語を選んで下さい。</h3>
                 </div>
 
                 <form action="" method="POST">
 
 <?php
-                        echo '<input type="hidden" name="game_score" id="game_score" value='.$_SESSION['score2'].'>';
+                        echo '<input type="hidden" name="game_score" id="game_score" value='.$_SESSION['score3'].'>';
 ?>
 
-                        <input type="button" class="btn btn-secondary"" value="回答１" id="btnjs1">
-                        <input type="button" class="btn btn-success" value="回答２" id="btnjs2">
+                        <input type="button" class="btn btn-info" value="回答１" id="btnjs1">
+                        <input type="button" class="btn btn-warning" value="回答２" id="btnjs2">
                         <input type="button" class="btn btn-danger" value="回答３" id="btnjs3">
-                        <input type="button" class="btn btn-warning"" value="回答４" id="btnjs4">
+                        <input type="button" class="btn btn-success" value="回答４" id="btnjs4">
 
                         <br/>
                         <br/>
 
 <?php
-                        echo 'HIGH SCORE：<span id="game_lblhighscore">'.$_SESSION['score2'].'</span> / SCORE：<span id="game_lblscore">0</span>';
+                        echo 'HIGH SCORE：<span id="game_lblhighscore">'.$_SESSION['score3'].'</span> / SCORE：<span id="game_lblscore">0</span>';
 ?>
                         成功数：<span id="game_success">0</span> / Miss: <span id="game_miss">0</span>
                         <br/>
@@ -122,14 +121,11 @@ if(isset($_POST['UpdScore'])) {
     echo "</div>";
     echo "<br/>";
 ?>
-    <a class="btn btn-primary" href="Ranking2.php">ランキング表へ</a>
-<?php
- } else {
-?>
-    <input type="submit" class="btn btn-primary" name="UpdScore" id="btnUpd" value="スコア更新" >
+    <a class="btn btn-primary" href="Ranking.php?game_code=3">ランキング表へ</a>
 <?php
  }
 ?>
+    <input type="submit" class="btn btn-secondary" name="UpdScore" id="btnUpd" value="スコア更新" disabled="true">
                 </form>
 
           </div>

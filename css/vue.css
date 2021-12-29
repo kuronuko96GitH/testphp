@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+#app{
+  text-align: center;
+}
+
+.cellborder {
+  border: solid;
+}
+
+.cell{
+  /* 初期サイズ
+  height: 10vmin;
+  width: 10vmin;
+  font-size: 6vmin;
+  */
+  height: 8vmin;
+  width: 8vmin;
+  font-size: 4.5vmin;
+
+  border: solid;
+  background: darkgreen;
+}
+
+#text{
+  margin: 15px;
+}

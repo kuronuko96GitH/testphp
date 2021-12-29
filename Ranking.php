@@ -26,13 +26,26 @@ $cnt = 0;
   $dsn = 'pgsql:host=' . $dbinfo['host'] . ';dbname=' . substr($dbinfo['path'], 1);
   $db = new PDO($dsn, $dbinfo['user'], $dbinfo['pass']);
 
-  // SELECT文を変数に格納(件数を取得する)
-  $sql = "SELECT count(*) FROM users";
+//  // SELECT文を変数に格納(件数を取得する)
+//  $sql = "SELECT count(*) FROM users";
+//
+//  // SQLステートメントを実行し、結果を変数に格納
+//  $stmt = $db->query($sql);
+//  // fetchColumn()…１レコードを取り出しつつ、１カラムだけ取り出す処理。
+//  $ranking_cnt = $stmt->fetchColumn(); // 取得したデータの総件数
 
-  // SQLステートメントを実行し、結果を変数に格納
-  $stmt = $db->query($sql);
+
+  // 件数を取得する
+  $sql = "SELECT count(*) FROM games WHERE gamecode = :game_code";
+
+  // SQLステートメントを実行し、結果を変数に格納  
+  $stmt = $db->prepare($sql);
+  $stmt->bindValue(":game_code", $_GET['game_code'], PDO::PARAM_INT);
+  $stmt->execute();
+
   // fetchColumn()…１レコードを取り出しつつ、１カラムだけ取り出す処理。
   $ranking_cnt = $stmt->fetchColumn(); // 取得したデータの総件数
+
 
 
   // 定数を設定
@@ -50,18 +63,21 @@ $cnt = 0;
   $cnt = $start_no;
  
   // SELECT文を変数に格納（上位１０名のみを表示する）
-//  $sql = "SELECT username, score2 FROM users ORDER BY score2 DESC LIMIT 10";
-//  $sql = "SELECT username, score2 FROM users ORDER BY score2 DESC";
-  $sql = "SELECT username, score2 FROM users ORDER BY score2 DESC LIMIT 10 offset :limitcnt";
+//  $sql = "SELECT username, score FROM users ORDER BY score DESC LIMIT 10";
+//  $sql = "SELECT username, score FROM users ORDER BY score DESC";
+//  $sql = "SELECT username, score FROM users ORDER BY score DESC LIMIT 10 offset :limitcnt";
+  $sql = "SELECT username, score FROM games WHERE gamecode = :game_code ORDER BY score DESC LIMIT 10 offset :limitcnt";
 
   // SQLステートメントを実行し、結果を変数に格納  
   $stmt = $db->prepare($sql);
+  $stmt->bindValue(":game_code", $_GET['game_code'], PDO::PARAM_INT);
   $stmt->bindValue(":limitcnt", $start_no, PDO::PARAM_INT);
   $stmt->execute();
 
   $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-
+  $stmt = null;
+  $db = null;
 
 
   // foreach文で配列の中身を一行ずつ出力
@@ -75,12 +91,12 @@ $cnt = 0;
       // ランキング表にログインユーザーがいた場合、背景色を変える。
       echo '<td class="text-white bg-secondary">'.$cnt.'</td>';
       echo '<td class="text-white bg-secondary">'.$row['username'].'</td>';
-      echo '<td class="text-white bg-secondary">'.$row['score2'].'</td>';
+      echo '<td class="text-white bg-secondary">'.$row['score'].'</td>';
 
     } else {
       echo '<td class="text-white">'.$cnt.'</td>';
       echo '<td class="text-white">'.$row['username'].'</td>';
-      echo '<td class="text-white">'.$row['score2'].'</td>';
+      echo '<td class="text-white">'.$row['score'].'</td>';
     }
 
     echo '</tr>';
@@ -93,10 +109,10 @@ $cnt = 0;
         </div>
 
       <h3>
-        <?php for ($x=1; $x <= $max_page ; $x++) {
+        <?php for ($x=1; $x <= $max_page; $x++) {
           // ページ数を表示する。
         ?> 
-          <a href="?page_id=<?php echo $x ?>"><?php echo $x; ?></a>
+          <a href="?game_code=<?php echo $_GET['game_code'] ?>&page_id=<?php echo $x ?>"><?php echo $x; ?></a>
         <?php } ?>
       </h3>
 

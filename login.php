@@ -15,33 +15,45 @@ if(isset($_POST['login'])) {
     $dsn = 'pgsql:host=' . $dbinfo['host'] . ';dbname=' . substr($dbinfo['path'], 1);
     $db = new PDO($dsn, $dbinfo['user'], $dbinfo['pass']);
 
-// DBに接続するためのユーザー名やパスワードを指定
-//        $dsn = 'pgsql:dbname=sampledb;host=myapp-db';
-//        $db = new PDO($dsn, 'sample-user', 'hi2mi4i6');
-
 		$sql = 'select * from users where username=? and password=?';
 		$stmt = $db->prepare($sql);
 		$stmt->execute(array($username,$password));
+    $result = $stmt->fetch();
+
+
+    if ($result['id'] !== null) {
+      //DBのユーザー情報をセッションに保存
+      $_SESSION['id'] = $result['id'];
+      $_SESSION['username'] = $result['username'];
+
+
+      for ($x=1; $x <= 3; $x++) {
+        // ゲームの数だけループを繰り返し、セッション情報を設定する。
+        $sql = 'select * from games where username=? and gamecode=?';
+        $stmt = $db->prepare($sql);
+        $stmt->execute(array($username,$x));
         $result = $stmt->fetch();
+
+        if ($x === 1) {
+          $_SESSION['score'] = $result['score'];
+
+        } else if ($x === 2) {
+          $_SESSION['score2'] = $result['score'];
+          
+        } else if ($x === 3) {
+          $_SESSION['score3'] = $result['score'];
+          
+        }
+      }
+
+        $result＿msg = 'ようこそ。'.$result['username'].'様';
+
+		} else {
+        $err_msg = "ユーザ名またはパスワードが誤ってます。";
+		}
 
 		$stmt = null;
 		$db = null;
-
-    if ($result['id'] !== null) {
-            //DBのユーザー情報をセッションに保存
-//            session_regenerate_id(true); //session_idを新しく生成し、置き換える
-            $_SESSION['id'] = $result['id'];
-            $_SESSION['username'] = $result['username'];
-            $_SESSION['score'] = $result['score'];
-            $_SESSION['score2'] = $result['score2'];
-
-            $result＿msg = 'ようこそ。'.$result['username'].'様';
-//            header('Location: http://localhost/index2.php');
-//			exit;
-		} else {
-            $err_msg = "ユーザ名またはパスワードが誤ってます。";
-		}
-
 
 	}catch (PDOException $e){
 		echo $e->getMessage();
@@ -65,8 +77,8 @@ if(isset($_POST['login'])) {
         <div class="row center-block text-center">
             <div class="col-12">
               <a class="btn btn-secondary" href="TypingGame.php">タイピングゲーム</a>
-              <a class="btn btn-secondary" href="QuizGame.php">英単語クイズゲーム</a>
-            </div>
+              <a class="btn btn-secondary" href="Reversi.php">オセロゲーム【Vue.js作成版】</a>
+            </div>                      
         </div>
 
 <?php
@@ -117,7 +129,7 @@ if(isset($_POST['login'])) {
 ?>
         <div class="row center-block text-center">
             <div class="col-12">
-              <a class="btn btn-secondary" href="QuizGame.php">英単語クイズゲーム</a>
+              <a class="btn btn-secondary" href="Reversi.php">オセロゲーム【Vue.js作成版】</a>
             </div>
         </div>
 <?php

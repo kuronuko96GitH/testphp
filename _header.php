@@ -18,6 +18,7 @@ session_start();
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
         <link href="css/game.css" rel="stylesheet" />
+        <link href="css/vue.css" rel="stylesheet" />
 
     </head>
     <body id="page-top">
@@ -32,28 +33,29 @@ session_start();
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
                         
-                        <li class="nav-item"><a class="nav-link" href="aboutme.php">About me</a></li>
-
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            タイピングゲーム
+                            ゲーム
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="Reversi.php">オセロ</a></li>
                                 <li><a class="dropdown-item" href="TypingGame.php">タイピングゲーム</a></li>
-                                <li><a class="dropdown-item" href="Ranking1.php">ランキング表</a></li>
+                                <li><a class="dropdown-item" href="QuizGame.php">クイズゲーム</a></li>
                             </ul>
                         </li>
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            クイズゲーム
+                            ランキング表
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li><a class="dropdown-item" href="QuizGame.php">クイズゲーム</a></li>
-                                <li><a class="dropdown-item" href="Ranking2.php">ランキング表</a></li>
+                                <li><a class="dropdown-item" href="Ranking.php?game_code=2">オセロ</a></li>
+                                <li><a class="dropdown-item" href="Ranking.php?game_code=1">タイピングゲーム</a></li>
+                                <li><a class="dropdown-item" href="Ranking.php?game_code=3">クイズゲーム</a></li>
                             </ul>
                         </li>
 
+                        <li class="nav-item"><a class="nav-link" href="aboutme.php">About me</a></li>
 
 <?php
 //  if (isset($_SESSION['id'])) {//ログインしているとき

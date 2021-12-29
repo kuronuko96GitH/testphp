@@ -37,33 +37,75 @@ if(isset($_POST['signup'])) {
     }
   }
 
+
   if ( $chk_flg != false ) {
     // 入力項目のチェックが問題無い場合。
 
-    try {    
+    // データベースに、既に登録されてるユーザーが存在しないかをチェック。
+    try {
           // Herokuサーバー接続用
           $dbinfo = parse_url(getenv('DATABASE_URL'));
           $dsn = 'pgsql:host=' . $dbinfo['host'] . ';dbname=' . substr($dbinfo['path'], 1);
           $db = new PDO($dsn, $dbinfo['user'], $dbinfo['pass']);
+      
+          $sql = 'select * from users where username=?';
+          $stmt = $db->prepare($sql);
+          $stmt->execute(array($username));
+          $result = $stmt->fetch();
+      
+          $stmt = null;
+          $db = null;
+      
+          if ($result['username'] !== null) {
+            //同じユーザー名が存在する。
+            $err_msg = "そのユーザー名は、既に登録されています。";
+            $chk_flg = false;
+          }
 
-// DBに接続するためのユーザー名やパスワードを指定
-//        $dsn = 'pgsql:dbname=sampledb;host=myapp-db';
-//        $db = new PDO($dsn, 'sample-user', 'hi2mi4i6');
+    }catch (PDOException $e){
+      echo $e->getMessage();
+      exit;
+    }
+  }
+
+
+  if ( $chk_flg != false ) {
+    // 入力項目のチェックが問題無い場合。
+
+    try {    
+  //		$db = new PDO('mysql:host=localhost; dbname=データベース名','ユーザー名','パスワード');
+          // DBに接続するためのユーザー名やパスワードを指定
+          $dsn = 'pgsql:dbname=sampledb;host=myapp-db';
+          $db = new PDO($dsn, 'sample-user', 'hi2mi4i6');
 
           $sql = 'insert into users(username,password) values(?,?)';
           $stmt = $db->prepare($sql);
           $stmt->execute(array($username,$password));
+
+          
+          // 新規データから、user_idを取得する。
+          $sql = 'select * from users where username=? and password=?';
+          $stmt = $db->prepare($sql);
+          $stmt->execute(array($username,$password));
+          $result = $stmt->fetch();
+
+          // セッション情報に設定する。
+          $_SESSION['id'] = $result['id'];
+          $_SESSION['username'] = $username;
+
+          for ($x=1; $x <= 3; $x++) {
+            // ゲームの数だけループを繰り返し、gamesテーブルに新規データを追加する。
+           
+            $sql = 'insert into games(user_id, username, gamecode) values(?,?,?)';
+            $stmt = $db->prepare($sql);
+            $stmt->execute(array($_SESSION['id'], $_SESSION['username'], $x));
+          }
+
+
           $stmt = null;
           $db = null;
 
-              //新規登録のユーザー情報をセッションに保存
-  //            $_SESSION['id'] = $result['id'];
-              $_SESSION['username'] = $username;
-
-              $result＿msg = 'ようこそ。'.$username.'様';
-  //            header('Location: http://localhost/index2.php');
-  //			exit;
-
+          $result＿msg = 'ようこそ。'.$username.'様';
 
     }catch (PDOException $e){
       echo $e->getMessage();
@@ -121,17 +163,17 @@ if(isset($_POST['signup'])) {
 ?>
         <div class="row center-block text-center">
             <div class="col-12">
-              <a class="btn btn-primary" href="QuizGame.php">英単語クイズゲーム</a>
+              <a class="btn btn-secondary" href="Reversi.php">オセロゲーム【Vue.js作成版】</a>
             </div>
         </div>
 <?php
     echo "<br/>";
-    echo "クイズゲームを押して下さい";
+    echo "オセロゲームを押して下さい";
 } else {
 ?>
         <div class="row center-block text-center">
             <div class="col-5">
-              <input type="submit" name="signup" class="btn btn-primary" value="新規登録">  
+              <input type="submit" name="signup" class="btn btn-secondary" value="新規登録">  
             </div>
             <div class="col-7">
             </div>

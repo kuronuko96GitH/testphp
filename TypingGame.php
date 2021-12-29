@@ -49,11 +49,8 @@ if(isset($_POST['UpdScore'])) {
           $dsn = 'pgsql:host=' . $dbinfo['host'] . ';dbname=' . substr($dbinfo['path'], 1);
           $db = new PDO($dsn, $dbinfo['user'], $dbinfo['pass']);
 
-// DBに接続するためのユーザー名やパスワードを指定
-//        $dsn = 'pgsql:dbname=sampledb;host=myapp-db';
-//        $db = new PDO($dsn, 'sample-user', 'hi2mi4i6');
-
-          $sql = 'update users set score = ? where username = ?';
+          // タイピングゲームは、ゲームコード『１』のデータを更新する。
+          $sql = 'update games set score = ?, updated_at = CURRENT_TIMESTAMP where username = ? and gamecode = 1';
 
           $stmt = $db->prepare($sql);
           $stmt->execute(array($score,$username));
@@ -70,7 +67,7 @@ if(isset($_POST['UpdScore'])) {
 ?>
             <div class="text-white">
                 <div align="center">
-                  <p class="display-5">― タイピングゲーム ―</p>
+                  <p class="display-6">― タイピングゲーム ―</p>
                 </div>
 
                 <div class="gamebox">
@@ -79,6 +76,8 @@ if(isset($_POST['UpdScore'])) {
 
                 <div>
                   <input type="button" class="btn btn-primary" value="click to start" id="start_button">
+                  <br>
+                  <br>
                   <h3 class="text-white">キーボード入力でゲームができます。</h3>
                 </div>
 
@@ -111,14 +110,11 @@ if(isset($_POST['UpdScore'])) {
     echo "</div>";
     echo "<br/>";
 ?>
-    <a class="btn btn-primary" href="Ranking1.php">ランキング表へ</a>
-<?php
- } else {
-?>
-    <input type="submit" class="btn btn-primary" name="UpdScore" id="btnUpd" value="スコア更新" >
+    <a class="btn btn-primary" href="Ranking.php?game_code=1">ランキング表へ</a>
 <?php
  }
 ?>
+    <input type="submit" class="btn btn-secondary" name="UpdScore" id="btnUpd" value="スコア更新" disabled="true">
                 </form>
 
           </div>

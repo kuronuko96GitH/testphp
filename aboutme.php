@@ -21,13 +21,15 @@ $title = '';
                             <div class="card-body">
                                 <h4 class="card-title">本サイトの開発言語・環境</h4>
 
-                                <p class="card-text">PHP</p>
-                                <p class="card-text">JavaScript</p>
-                                <p class="card-text">docker(ローカル・開発用の仮想環境)</p>
-                                <p class="card-text">PostgreSQL (ローカル・本番環境データベース)</p>
-                                <p class="card-text">GitHub (ソースコード管理)</p>
-                                <p class="card-text">SourceTree (ソースコード管理)</p>
-                                <p class="card-text">Visual Studio Code (ソースコードエディタ)</p> 
+                                <p class="card-text">PHP
+                                    <br>JavaScript
+                                    <br>Vue.js(フレームワーク)
+                                    <br>PostgreSQL (データベース)
+                                    <br>
+                                    <br>docker(ローカル・開発用の仮想環境)
+                                    <br>GitHub (ソースコード管理)
+                                    <br>SourceTree (ソースコード管理)
+                                    <br>Visual Studio Code (ソースコードエディタ)
                             </div>
                         </div>
                         

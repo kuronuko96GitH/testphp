@@ -5,8 +5,7 @@ $title = '';
                     <div class="text-center">
                         <h1 class="mx-auto my-0 text-uppercase">Portfolio</h1>
                         <h2 class="text-white-50 mx-auto mt-2 mb-5">ゲームが遊べます。</h2>
-                        <a class="btn btn-secondary" href="TypingGame.php">タイピングゲーム</a>
-                        <a class="btn btn-secondary" href="QuizGame.php">英単語クイズゲーム</a>
+                        <a class="btn btn-secondary" href="Reversi.php">オセロゲーム【Vue.js作成版】</a>
                        
                         <h4 class="text-white-50 mx-auto mt-2">ランキング登録をする場合は、ログインをして下さい。</h4>
                         <a class="btn btn-primary" href="login.php">ログイン</a>
