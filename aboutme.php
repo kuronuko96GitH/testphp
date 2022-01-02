@@ -40,26 +40,6 @@ $title = '';
 
                 </div>
             </div>
-       UURL GitHub
-        <!-- URL GitHub -->
-        <section class="bg-black">
-            <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
-                <div class="d-flex justify-content-center">
-                        
-                    <div class="text-center">
-                        <div class="card text-white bg-dark mb-3" style="max-width: 25rem;">
-                            <div class="card-body">
-                                <h4 class="card-title">GitHub（公開ソースコード）</h4>
-                                <p class="card-text"><a href="https://github.com/kuronuko96GitH/testphp" target="_blank" rel="noopener" class="title is-6 has-text-link">https://github.com/kuronuko96GitH/testphp</a>
-                            </div>
-                        </div>
-                        
-                        <br>
-
-                    </div>
-
-                </div>
-            </div>
-        </section>
+        </header>
 <?php
 include('_footer.php');

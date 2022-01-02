@@ -107,7 +107,7 @@ if(isset($_POST['login'])) {
                         <div class="form-group">
                             <label>ユーザー：</label>
 <?php
-                            echo '<input type="text" class="form-control" name="username" value="'.$username.'">'
+                            echo '<input type="text" class="form-control" name="username" id="id_username" value="'.$username.'">'
 ?>
                         </div>
 
@@ -116,7 +116,7 @@ if(isset($_POST['login'])) {
                         <div class="form-group">
                             <label>パスワード：</label>
 <?php
-                            echo '<input type="password" class="form-control" name="password">'
+                            echo '<input type="password" class="form-control" name="password" id="id_password">'
 ?>
                         </div>
                     </form>
@@ -159,10 +159,24 @@ if(isset($_POST['login'])) {
           </div>
         </form>
 
+        <br>ゲスト(guest)で、ログインすることもできます。
+        <div class="row center-block text-center">
+                <div class="col-5">
+                  <input type="button" class="btn btn-info" value="ゲストアカウント" id="guest_button">
+                </div>
+                <div class="col-1">
+                </div>
+                <div class="col-6">
+                </div>
+        </div>
+
       </div>
     </div>
   </div>
 </header>
+
+<!-- 外部のJavaScriptファイルの読み込み -->
+<script type="text/javascript" src="js/guestlogin.js"></script>
 
 <?php
   // ここまでが、まだログインしてないユーザーだった場合 
