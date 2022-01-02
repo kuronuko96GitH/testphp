@@ -4,6 +4,10 @@ include('_header.php');
 $cnt = 0;
 
 ?>
+<header class="masthead">
+  <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+    <div class="d-flex justify-content-center">
+
       <div class="text-white">
         <div align="center">
         <p class="display-5">ランキング表</p>
@@ -104,9 +108,9 @@ $cnt = 0;
   }
 ?>
 
-            </tbody>
-          </table>
-        </div>
+          </tbody>
+        </table>
+      </div>
 
       <h3>
         <?php for ($x=1; $x <= $max_page; $x++) {
@@ -116,8 +120,9 @@ $cnt = 0;
         <?php } ?>
       </h3>
 
-      </div>
-    
+    </div>
+  </div>
+</header>
 
-    <?php 
+<?php 
 include('_footer.php');

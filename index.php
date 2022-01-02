@@ -2,6 +2,11 @@
 include('_header.php');
 $title = '';
 ?>
+        <!-- Masthead-->
+        <header class="masthead">
+            <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+                <div class="d-flex justify-content-center">
+                    
                     <div class="text-center">
                         <h1 class="mx-auto my-0 text-uppercase">Portfolio</h1>
                         <h2 class="text-white-50 mx-auto mt-2 mb-5">ゲームが遊べます。</h2>
@@ -18,5 +23,8 @@ $title = '';
                         <h3 class="text-white-50 mx-auto mt-2">★（GitHub）公開してるソースコードは<a href="https://github.com/kuronuko96GitH/testphp" target="_blank" rel="noopener">こちらから</a></h3>
                     </div>
 
+                </div>
+            </div>
+        </header>
 <?php
 include('_footer.php');

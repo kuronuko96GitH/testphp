@@ -61,18 +61,23 @@ if(isset($_POST['login'])) {
 	}
 }
 ?>
-    <div class="text-white">
-      <div align="center">
-        <p class="display-5">― ログイン ―</p>
-      </div>
+<!-- Masthead-->
+<header class="masthead">
+  <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+    <div class="d-flex justify-content-center">
+      <div class="text-white">
+
+        <div align="center">
+          <p class="display-5">― ログイン ―</p>
+        </div>
 
 <?php
-  if ($_SESSION['username'] !== null && $_SESSION['username'] !== '') {
-    // ログイン済みのユーザーの場合。
-        echo "<br/>";
-        echo 'ようこそ。'.$_SESSION['username'].'様';
-        echo "<br/>";
-        echo "<br/>";
+      if ($_SESSION['username'] !== null && $_SESSION['username'] !== '') {
+        // ログイン済みのユーザーの場合。
+            echo "<br/>";
+            echo 'ようこそ。'.$_SESSION['username'].'様';
+            echo "<br/>";
+            echo "<br/>";
 ?>
         <div class="row center-block text-center">
             <div class="col-12">
@@ -82,79 +87,83 @@ if(isset($_POST['login'])) {
         </div>
 
 <?php
-      echo "<br/>";
-      echo "遊びたいゲームを押して下さい";
-  } else {
-  // まだログインされてないユーザーの場合
+          echo "<br/>";
+          echo "遊びたいゲームを押して下さい";
+      } else {
+      // まだログインされてないユーザーの場合
 
-    if ($err_msg !== null && $err_msg !== '') {
-        echo "<div>";
-        echo $err_msg;
-        echo "</div>";
-        echo "<br/>";
-    }
+        if ($err_msg !== null && $err_msg !== '') {
+            echo "<div>";
+            echo $err_msg;
+            echo "</div>";
+            echo "<br/>";
+        }
 ?>
-    <form action="" method="POST">
-      <div class="col-20">
-        <div class="row">
-            <div class="col-md">
-                <form>
-                    <div class="form-group">
-                        <label>ユーザー：</label>
+        <form action="" method="POST">
+          <div class="col-20">
+            <div class="row">
+                <div class="col-md">
+                    <form>
+                        <div class="form-group">
+                            <label>ユーザー：</label>
 <?php
-                        echo '<input type="text" class="form-control" name="username" value="'.$username.'">'
+                            echo '<input type="text" class="form-control" name="username" value="'.$username.'">'
 ?>
-                    </div>
+                        </div>
 
-                    <br/>
+                        <br/>
 
-                    <div class="form-group">
-                        <label>パスワード：</label>
+                        <div class="form-group">
+                            <label>パスワード：</label>
 <?php
-                        echo '<input type="password" class="form-control" name="password">'
+                            echo '<input type="password" class="form-control" name="password">'
 ?>
-                    </div>
-                </form>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
 
-        <br/>
+            <br/>
 
 <?php
-    if ($result＿msg !== null && $result＿msg !== '') {
-        echo "<br/>";
-        echo $result＿msg;
-        echo "<br/>";
-        echo "<br/>";
+        if ($result＿msg !== null && $result＿msg !== '') {
+            echo "<br/>";
+            echo $result＿msg;
+            echo "<br/>";
+            echo "<br/>";
 ?>
-        <div class="row center-block text-center">
-            <div class="col-12">
-              <a class="btn btn-secondary" href="Reversi.php">オセロゲーム【Vue.js作成版】</a>
+            <div class="row center-block text-center">
+                <div class="col-12">
+                  <a class="btn btn-secondary" href="Reversi.php">オセロゲーム【Vue.js作成版】</a>
+                </div>
             </div>
-        </div>
 <?php
-      echo "<br/>";
-      echo "クイズゲームを押して下さい";
-    } else {
+          echo "<br/>";
+          echo "クイズゲームを押して下さい";
+        } else {
 ?>
-        <div class="row center-block text-center">
-            <div class="col-5">
-              <input type="submit" name="login" class="btn btn-primary" value="ログイン">  
+            <div class="row center-block text-center">
+                <div class="col-5">
+                  <input type="submit" name="login" class="btn btn-primary" value="ログイン">  
+                </div>
+                <div class="col-1">
+                </div>
+                <div class="col-6">
+                  <a class="btn btn-secondary" href="signup.php">新規登録へ</a>
+                </div>
             </div>
-            <div class="col-1">
-            </div>
-            <div class="col-6">
-              <a class="btn btn-secondary" href="signup.php">新規登録へ</a>
-            </div>
-        </div>
 <?php
-    }
+        }
 ?>
+
+          </div>
+        </form>
 
       </div>
     </div>
+  </div>
+</header>
 
-  </form>
 <?php
   // ここまでが、まだログインしてないユーザーだった場合 
   }

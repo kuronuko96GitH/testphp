@@ -1,8 +1,3 @@
-</div>
-            </div>
-        </header>
- 
-
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <!-- Add class="nav-item dropdown" -->

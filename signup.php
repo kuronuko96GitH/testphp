@@ -108,79 +108,84 @@ if(isset($_POST['signup'])) {
   }
 }
 ?>
-    <div class="text-white">
-      <div align="center">
-        <p class="display-5">― 新規登録 ―</p>
-      </div>
+<header class="masthead">
+  <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+    <div class="d-flex justify-content-center">
 
-<?php
- if ($err_msg !== null && $err_msg !== '') {
-    echo "<div>";
-    echo $err_msg;
-    echo "</div>";
-    echo "<br/>";
- }
-?>
-    <form action="" method="POST">
-      <div class="col-20">
-        <div class="row">
-            <div class="col-md">
-                <form>
-                    <div class="form-group">
-                        <label>ユーザー：</label>
-<?php
-                        echo '<input type="text" class="form-control" name="username" value="'.$username.'">'
-?>
-                    </div>
-
-                    <br/>
-
-                    <div class="form-group">
-                        <label>パスワード：</label>
-<?php
-                        echo '<input type="password" class="form-control" name="password" value="'.$password.'">'
-?>
-                    </div>
-                </form>
-            </div>
+      <div class="text-white">
+        <div align="center">
+          <p class="display-5">― 新規登録 ―</p>
         </div>
 
-        <br/>
+<?php
+        if ($err_msg !== null && $err_msg !== '') {
+            echo "<div>";
+            echo $err_msg;
+            echo "</div>";
+            echo "<br/>";
+        }
+?>
+        <form action="" method="POST">
+          <div class="col-20">
+            <div class="row">
+                <div class="col-md">
+                    <form>
+                        <div class="form-group">
+                            <label>ユーザー：</label>
+<?php
+                            echo '<input type="text" class="form-control" name="username" value="'.$username.'">'
+?>
+                        </div>
+
+                        <br/>
+
+                        <div class="form-group">
+                            <label>パスワード：</label>
+<?php
+                            echo '<input type="password" class="form-control" name="password" value="'.$password.'">'
+?>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <br/>
 
 <?php
- if ($result＿msg !== null && $result＿msg !== '') {
-    echo "<br/>";
-    echo $result＿msg;
-    echo "<br/>";
-    echo "<br/>";
+          if ($result＿msg !== null && $result＿msg !== '') {
+              echo "<br/>";
+              echo $result＿msg;
+              echo "<br/>";
+              echo "<br/>";
 ?>
-        <div class="row center-block text-center">
-            <div class="col-12">
-              <a class="btn btn-secondary" href="Reversi.php">オセロゲーム【Vue.js作成版】</a>
+            <div class="row center-block text-center">
+                <div class="col-12">
+                  <a class="btn btn-secondary" href="Reversi.php">オセロゲーム【Vue.js作成版】</a>
+                </div>
             </div>
-        </div>
 <?php
-    echo "<br/>";
-    echo "オセロゲームを押して下さい";
-} else {
+              echo "<br/>";
+              echo "オセロゲームを押して下さい";
+          } else {
 ?>
-        <div class="row center-block text-center">
-            <div class="col-5">
-              <input type="submit" name="signup" class="btn btn-secondary" value="新規登録">  
+            <div class="row center-block text-center">
+                <div class="col-5">
+                  <input type="submit" name="signup" class="btn btn-secondary" value="新規登録">  
+                </div>
+                <div class="col-7">
+                </div>
             </div>
-            <div class="col-7">
-            </div>
-        </div>
 <?php
-  }
+          }
 ?>
+
+          </div>
+        </form>
 
       </div>
     </div>
-
-  </form>
-
-
+  </div>
+</header>
 
 <?php 
 include('_footer.php');

@@ -65,6 +65,10 @@ if(isset($_POST['UpdScore'])) {
   }
 }
 ?>
+<header class="masthead">
+  <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+    <div class="d-flex justify-content-center">
+
             <div class="text-white">
                 <div align="center">
                   <p class="display-6">― タイピングゲーム ―</p>
@@ -117,10 +121,13 @@ if(isset($_POST['UpdScore'])) {
     <input type="submit" class="btn btn-secondary" name="UpdScore" id="btnUpd" value="スコア更新" disabled="true">
                 </form>
 
-          </div>
- 
-    <!-- 外部のJavaScriptファイルの読み込み -->
-    <script type="text/javascript" src="js/game01.js"></script>
+            </div>
+    </div>
+  </div>
+</header>
+
+<!-- 外部のJavaScriptファイルの読み込み -->
+<script type="text/javascript" src="js/game01.js"></script>
 
 
 <?php

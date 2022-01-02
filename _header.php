@@ -55,11 +55,18 @@ session_start();
                             </ul>
                         </li>
 
-                        <li class="nav-item"><a class="nav-link" href="aboutme.php">About me</a></li>
-
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            About me
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="aboutme.php">About me</a></li>
+                                <li><a class="dropdown-item" href="link.php">他のポートフォリオ</a></li>
+<!--                                <li><a class="dropdown-item" href="doc.php">ドキュメント</a></li> -->
+                            </ul>
+                        </li>
 <?php
-//  if (isset($_SESSION['id'])) {//ログインしているとき
-    if (isset($_SESSION['username'])) {//ログインしているとき
+    if (isset($_SESSION['id'])) {//ログインしているとき
 ?>
                         <li class="nav-item"><a class="nav-link" href="logout.php">ログアウト</a></li>
 <?php
@@ -73,7 +80,3 @@ session_start();
                 </div>
             </div>
         </nav>
-<!-- Masthead-->
-<header class="masthead">
-    <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
-        <div class="d-flex justify-content-center">

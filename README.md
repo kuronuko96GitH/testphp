@@ -1,6 +1,6 @@
 # ポートフォリオ（portfolio）
 * 製作期間：１カ月
-* Web上でタイピングゲームなどを遊ぶことができ、
+* Web上でオセロゲーム(Vue.js)などを遊ぶことができ、
 * スコアをランキング表に登録できます。
 
 # 本番環境（Heroku）
@@ -13,7 +13,7 @@
 * Delphi　1年～3年
 * VisualBasic　5年以上
 * VBA　1年～3年
-* Visual Basic .NET　1年～3年
+* VisualBasic.NET　1年～3年
 * Java　5年以上
 * JavaScript　3年～5年
 * JSP　3年～5年
@@ -28,7 +28,7 @@
 ◆開発言語・環境
 * docker(ローカル・開発用の仮想環境)
 * 
-* PHP
+* PHP(7.4)
 * JavaScript
 * Vue.js(フレームワーク)
 *（※オセロゲームは、Vue.jsで開発してます）

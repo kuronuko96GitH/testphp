@@ -65,7 +65,11 @@ if(isset($_POST['UpdScore'])) {
   }
 }
 ?>
-            <div class="text-white">
+<header class="masthead">
+  <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+    <div class="d-flex justify-content-center">
+
+          <div class="text-white">
                 <div align="center">
                   <p class="display-6">― 英単語クイズゲーム ―</p>
                 </div>
@@ -130,8 +134,12 @@ if(isset($_POST['UpdScore'])) {
 
           </div>
  
-    <!-- 外部のJavaScriptファイルの読み込み -->
-    <script type="text/javascript" src="js/game02.js"></script>
+    </div>
+  </div>
+</header>
+
+<!-- 外部のJavaScriptファイルの読み込み -->
+<script type="text/javascript" src="js/game02.js"></script>
 
 
 <?php
