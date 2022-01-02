@@ -18,13 +18,18 @@ $title = '';
                         <br>
                         <br>
 
+<?php
+                    if (!isset($_SESSION['id'])) {
+                        //ログインしてない時
+?>
                         <h4 class="text-white-50 mx-auto mt-2">ランキング登録をする場合は、ログインをして下さい。</h4>
-
                         <br>
-
                         <a class="btn btn-primary" href="login.php">ログイン</a>
-                
                         <br>
+<?php
+                    }
+?>
+
                         <br>
                         <br>
 
