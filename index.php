@@ -42,8 +42,8 @@ $title = '';
                                         <div class="card text-white bg-dark mb-3" style="max-width: 50rem;">
                                             <div class="card-body">
                                                 <div>他にも公開してるポートフォリオは <a href="link.php">こちら</a>から</div>
-                                                <div><i class="fab fa-github"></i></div>
-                                                <div>GitHub（公開ソースコード）: <a href="https://github.com/kuronuko96GitH/testphp" target="_blank" rel="noopener">https://github.com/kuronuko96GitH/testphp</a></div>
+                                                <!-- icon add cdn fontawesome free-->
+                                                <div><i class="fab fa-github fa-2x"></i>  GitHub（公開ソースコード）: <a href="https://github.com/kuronuko96GitH/testphp" target="_blank" rel="noopener">https://github.com/kuronuko96GitH/testphp</a></div>
                                             </div>
                                         </div>
                                     </div>
