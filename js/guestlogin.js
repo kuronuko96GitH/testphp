@@ -3,12 +3,12 @@
 
   const $btnGuest = $doc.getElementById('guest_button');
 
-  const $txtUsername = $doc.getElementById('id_username');
+  const $txtEmail = $doc.getElementById('id_email');
   const $txtPassword = $doc.getElementById('id_password');
 
   $btnGuest.addEventListener('click', (e) => {
     //ゲスト(Guest)ボタンをクリックした時、
     //ゲスト用のユーザー名とパスワードを設定する。
-    $txtUsername.value= 'guest';
+    $txtEmail.value= 'guest@example.com';
     $txtPassword.value= 'guest1234';
   });

@@ -25,10 +25,10 @@ $cnt = 0;
             <tbody>
 
 <?php
-  // Herokuサーバー接続用
-  $dbinfo = parse_url(getenv('DATABASE_URL'));
-  $dsn = 'pgsql:host=' . $dbinfo['host'] . ';dbname=' . substr($dbinfo['path'], 1);
-  $db = new PDO($dsn, $dbinfo['user'], $dbinfo['pass']);
+  // ユーザー名やパスワードなどは、
+  // 後ほど紹介する docker-compose.yml と併せて適宜変更してください
+  $dsn = 'pgsql:dbname=sampledb;host=myapp-db';
+  $db = new PDO($dsn, 'sample-user', 'hi2mi4i6');
 
 //  // SELECT文を変数に格納(件数を取得する)
 //  $sql = "SELECT count(*) FROM users";
@@ -67,10 +67,9 @@ $cnt = 0;
   $cnt = $start_no;
  
   // SELECT文を変数に格納（上位１０名のみを表示する）
-//  $sql = "SELECT username, score FROM users ORDER BY score DESC LIMIT 10";
-//  $sql = "SELECT username, score FROM users ORDER BY score DESC";
 //  $sql = "SELECT username, score FROM users ORDER BY score DESC LIMIT 10 offset :limitcnt";
-  $sql = "SELECT username, score FROM games WHERE gamecode = :game_code ORDER BY score DESC LIMIT 10 offset :limitcnt";
+//  $sql = "SELECT username, score FROM games WHERE gamecode = :game_code ORDER BY score DESC LIMIT 10 offset :limitcnt";
+    $sql = "SELECT users.username, games.score FROM users, games WHERE users.id = games.user_id and games.gamecode = :game_code ORDER BY games.score DESC LIMIT 10 offset :limitcnt";
 
   // SQLステートメントを実行し、結果を変数に格納  
   $stmt = $db->prepare($sql);

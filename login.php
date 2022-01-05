@@ -6,51 +6,65 @@ $err_msg = "";
 if(isset($_POST['login'])) {
 // ログインボタンを押した時
 
-	$username = $_POST['username'];
-	$password = $_POST['password'];
+	$email = $_POST['email']; // 入力画面のメールアドレスを取得。
 
 	try {
-    // Herokuサーバー接続用
-    $dbinfo = parse_url(getenv('DATABASE_URL'));
-    $dsn = 'pgsql:host=' . $dbinfo['host'] . ';dbname=' . substr($dbinfo['path'], 1);
-    $db = new PDO($dsn, $dbinfo['user'], $dbinfo['pass']);
+//		$db = new PDO('mysql:host=localhost; dbname=データベース名','ユーザー名','パスワード');
+    // DBに接続するためのユーザー名やパスワードを指定
+    $dsn = 'pgsql:dbname=sampledb;host=myapp-db';
+    $db = new PDO($dsn, 'sample-user', 'hi2mi4i6');
 
-		$sql = 'select * from users where username=? and password=?';
+    $sql = 'select * from users where email=?';
 		$stmt = $db->prepare($sql);
-		$stmt->execute(array($username,$password));
+		$stmt->execute(array($email));
     $result = $stmt->fetch();
 
-
+    
     if ($result['id'] !== null) {
-      //DBのユーザー情報をセッションに保存
-      $_SESSION['id'] = $result['id'];
-      $_SESSION['username'] = $result['username'];
+      // メールアドレスが存在する場合。
+
+      $password = $_POST['password']; // 入力画面のパスワードを取得。
+      if ( password_verify($password, $result['password']) ) {
+
+        // password_verify…画面で入力したパスワードと、データベースの暗号化されたパスワードをキーにして、
+        //パスワードが正しいことをチェックする関数。
+
+        // パスワードも存在する場合
+        //DBのユーザー情報をセッションに保存
+        $_SESSION['id'] = $result['id'];
+        $_SESSION['username'] = $result['username'];
+        $_SESSION['email'] = $result['email'];
 
 
-      for ($x=1; $x <= 3; $x++) {
-        // ゲームの数だけループを繰り返し、セッション情報を設定する。
-        $sql = 'select * from games where username=? and gamecode=?';
-        $stmt = $db->prepare($sql);
-        $stmt->execute(array($username,$x));
-        $result = $stmt->fetch();
+        for ($x=1; $x <= 3; $x++) {
+          // ゲームの数だけループを繰り返し、セッション情報を設定する。
+          $sql = 'select * from games where user_id=? and gamecode=?';
+          $stmt = $db->prepare($sql);
+          $stmt->execute(array($_SESSION['id'],$x));
+          $result = $stmt->fetch();
 
-        if ($x === 1) {
-          $_SESSION['score'] = $result['score'];
+          if ($x === 1) {
+            $_SESSION['score'] = $result['score'];
 
-        } else if ($x === 2) {
-          $_SESSION['score2'] = $result['score'];
-          
-        } else if ($x === 3) {
-          $_SESSION['score3'] = $result['score'];
-          
+          } else if ($x === 2) {
+            $_SESSION['score2'] = $result['score'];
+            
+          } else if ($x === 3) {
+            $_SESSION['score3'] = $result['score'];
+            
+          }
         }
+
+          $result＿msg = 'ようこそ。'.$result['username'].'様';
+
+      } else {
+          $err_msg = "パスワードが誤ってます。";
       }
 
-        $result＿msg = 'ようこそ。'.$result['username'].'様';
 
-		} else {
-        $err_msg = "ユーザ名またはパスワードが誤ってます。";
-		}
+    } else {
+      $err_msg = "メールアドレスが誤ってます。";
+    }
 
 		$stmt = null;
 		$db = null;
@@ -72,7 +86,7 @@ if(isset($_POST['login'])) {
         </div>
 
 <?php
-      if ($_SESSION['username'] !== null && $_SESSION['username'] !== '') {
+      if ($_SESSION['email'] !== null && $_SESSION['email'] !== '') {
         // ログイン済みのユーザーの場合。
             echo "<br/>";
             echo 'ようこそ。'.$_SESSION['username'].'様';
@@ -105,9 +119,9 @@ if(isset($_POST['login'])) {
                 <div class="col-md">
                     <form>
                         <div class="form-group">
-                            <label>ユーザー：</label>
+                            <label>メールアドレス：</label>
 <?php
-                            echo '<input type="text" class="form-control" name="username" id="id_username" value="'.$username.'">'
+                            echo '<input type="text" class="form-control" name="email" id="id_email" value="'.$email.'">'
 ?>
                         </div>
 
@@ -116,7 +130,7 @@ if(isset($_POST['login'])) {
                         <div class="form-group">
                             <label>パスワード：</label>
 <?php
-                            echo '<input type="password" class="form-control" name="password" id="id_password">'
+                            echo '<input type="password" class="form-control" name="password" id="id_password" value="'.$password.'">'
 ?>
                         </div>
                     </form>

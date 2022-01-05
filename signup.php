@@ -9,7 +9,9 @@ if(isset($_POST['signup'])) {
   // 新規登録ボタンを押した時
 
   $username = $_POST['username'];
+  $email = $_POST['email'];
   $password = $_POST['password'];
+  $password_hash = $_POST['password']; // データ登録時に、暗号化する予定のパスワード
 
   // テキストエリアの入力チェック。
   if ($_POST['username'] !== null && $_POST['username'] !== '')  {
@@ -20,12 +22,29 @@ if(isset($_POST['signup'])) {
   }
 
   if ($chk_flg === true) {
+    if ($_POST['email'] !== null && $_POST['email'] !== '')  {
+
+      //メールアドレスの正規表現
+      if (preg_match('/^([a-zA-Z0-9])+([a-zA-Z0-9._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9._-]+)+$/', $_POST['email'])) {
+
+      } else {
+        $err_msg = "メールアドレスは半角英数字と<br/>＠を含んだ設定をしてください。";
+        $chk_flg = false;
+      }
+
+    } else {
+      $err_msg = "メールアドレスが空白です。";
+      $chk_flg = false;
+    }
+  }
+  
+  if ($chk_flg === true) {
     if ($_POST['password'] !== null && $_POST['password'] !== '')  {
 
       //パスワードの正規表現
       if (preg_match('/\A(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}+\z/i', $_POST['password'])) {
-        // ※今回はテストデータなので、暗号化をしてデータベースには登録しない。
-//        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        // パスワードは暗号化をして、データベースに登録。
+        $password_hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
       } else {
         $err_msg = "パスワードは半角英数字をそれぞれ<br/>1文字以上含んだ8文字以上で設定してください。";
         $chk_flg = false;
@@ -43,10 +62,10 @@ if(isset($_POST['signup'])) {
 
     // データベースに、既に登録されてるユーザーが存在しないかをチェック。
     try {
-          // Herokuサーバー接続用
-          $dbinfo = parse_url(getenv('DATABASE_URL'));
-          $dsn = 'pgsql:host=' . $dbinfo['host'] . ';dbname=' . substr($dbinfo['path'], 1);
-          $db = new PDO($dsn, $dbinfo['user'], $dbinfo['pass']);
+      //		$db = new PDO('mysql:host=localhost; dbname=データベース名','ユーザー名','パスワード');
+              // DBに接続するためのユーザー名やパスワードを指定
+          $dsn = 'pgsql:dbname=sampledb;host=myapp-db';
+          $db = new PDO($dsn, 'sample-user', 'hi2mi4i6');
       
           $sql = 'select * from users where username=?';
           $stmt = $db->prepare($sql);
@@ -56,6 +75,11 @@ if(isset($_POST['signup'])) {
           if ($result['username'] !== null) {
             //同じユーザー名が存在する。
             $err_msg = "そのユーザー名は、既に登録されています。";
+            $chk_flg = false;
+          }
+          if ($result['email'] !== null) {
+            //同じメールアドレスが存在する。
+            $err_msg = "そのメールアドレスは、既に登録されています。";
             $chk_flg = false;
           }
 
@@ -71,27 +95,28 @@ if(isset($_POST['signup'])) {
 
     try {    
       
-          $sql = 'insert into users(username,password) values(?,?)';
+          $sql = 'insert into users(username, email, password) values(?,?,?)';
           $stmt = $db->prepare($sql);
-          $stmt->execute(array($username,$password));
+          $stmt->execute(array($username,$email,$password_hash));
 
           
           // 新規データから、user_idを取得する。
-          $sql = 'select * from users where username=? and password=?';
+          $sql = 'select * from users where username=? and email=?';
           $stmt = $db->prepare($sql);
-          $stmt->execute(array($username,$password));
+          $stmt->execute(array($username,$email));
           $result = $stmt->fetch();
 
           // セッション情報に設定する。
           $_SESSION['id'] = $result['id'];
           $_SESSION['username'] = $username;
+          $_SESSION['email'] = $email;
 
           for ($x=1; $x <= 3; $x++) {
             // ゲームの数だけループを繰り返し、gamesテーブルに新規データを追加する。
            
-            $sql = 'insert into games(user_id, username, gamecode) values(?,?,?)';
+            $sql = 'insert into games(user_id, gamecode) values(?,?)';
             $stmt = $db->prepare($sql);
-            $stmt->execute(array($_SESSION['id'], $_SESSION['username'], $x));
+            $stmt->execute(array($_SESSION['id'], $x));
           }
 
 
@@ -134,6 +159,15 @@ if(isset($_POST['signup'])) {
                             <label>ユーザー：</label>
 <?php
                             echo '<input type="text" class="form-control" name="username" value="'.$username.'">'
+?>
+                        </div>
+
+                        <br/>
+
+                        <div class="form-group">
+                            <label>メールアドレス：</label>
+<?php
+                            echo '<input type="text" class="form-control" name="email" value="'.$email.'">'
 ?>
                         </div>
 

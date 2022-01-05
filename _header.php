@@ -8,7 +8,7 @@ session_start();
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Portfolio</title>
+        <title>PHP Games</title>
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
@@ -25,7 +25,7 @@ session_start();
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="index.php">PHP Games</a>
+                <a class="navbar-brand" href="index.php">PHP Games(Portfolio)</a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars"></i>
@@ -62,7 +62,7 @@ session_start();
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <li><a class="dropdown-item" href="aboutme.php">About me</a></li>
                                 <li><a class="dropdown-item" href="link.php">他のポートフォリオ</a></li>
-<!--                                <li><a class="dropdown-item" href="doc.php">ドキュメント</a></li> -->
+                                <li><a class="dropdown-item" href="doc.php">ドキュメント(設計書)</a></li>
                             </ul>
                         </li>
 <?php

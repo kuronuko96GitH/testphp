@@ -4,14 +4,16 @@ $result_msg = "";
 $err_msg = "";
 
 if ($_SESSION['score2'] === null || $_SESSION['score2'] === '') {
-  // ログインがされてない場合は、セッション情報のスコアに０を設定する。
+  // ログインがされてない場合は、セッション情報のスコア（ハイスコアも含む）に０を設定する。
   $_SESSION['score2'] = 0;
 }
   
 if(isset($_POST['UpdScore'])) {
 
-  if ($_SESSION['username'] === null || $_SESSION['username'] === '') {
-    // ログインがされてない場合。
+  if (!isset($_SESSION['id'])) {
+//  if ($_SESSION['username'] === null || $_SESSION['username'] === '') {
+	// ログインがされてない場合
+//    $_SESSION['score2'] = 0;
     $result_msg = "";
     $err_msg = "ランキングに登録する場合は、<br>ログインをして下さい。";
 
@@ -38,24 +40,21 @@ if(isset($_POST['UpdScore'])) {
   //    echo '<br/>';
 //  echo '$_SESSION2:'.$_SESSION['score2'];
 
-  //  if (isset($_SESSION['id'])) {//ログインしているとき
-          if (isset($_SESSION['username'])) {//ログインしているとき
-            $result_msg = "ランキング表に更新されました。";
-            $err_msg = "";
-          }
-
-			// Herokuサーバー接続用
-			$dbinfo = parse_url(getenv('DATABASE_URL'));
-			$dsn = 'pgsql:host=' . $dbinfo['host'] . ';dbname=' . substr($dbinfo['path'], 1);
-			$db = new PDO($dsn, $dbinfo['user'], $dbinfo['pass']);
+          // DBに接続するためのユーザー名やパスワードを指定
+          $dsn = 'pgsql:dbname=sampledb;host=myapp-db';
+          $db = new PDO($dsn, 'sample-user', 'hi2mi4i6');
 
 		  // オセロは、ゲームコード『２』のデータを更新する。
-          $sql = 'update games set score = ?, updated_at = CURRENT_TIMESTAMP where username = ? and gamecode = 2';
+          $sql = 'update games set score = ?, updated_at = CURRENT_TIMESTAMP where user_id = ? and gamecode = 2';
 
           $stmt = $db->prepare($sql);
-          $stmt->execute(array($score,$username));
+          $stmt->execute(array($score,$_SESSION['id']));
           $stmt = null;
           $db = null;
+
+          //ログインしている時
+          $result_msg = "ランキング表に更新されました。";
+          $err_msg = "";
 
     }catch (PDOException $e){
       echo $e->getMessage();
