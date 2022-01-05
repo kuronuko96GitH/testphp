@@ -67,23 +67,15 @@ if(isset($_POST['signup'])) {
           $dsn = 'pgsql:host=' . $dbinfo['host'] . ';dbname=' . substr($dbinfo['path'], 1);
           $db = new PDO($dsn, $dbinfo['user'], $dbinfo['pass']);
       
-          $sql = 'select * from users where username=?';
+          $sql = 'select * from users where email=?';
           $stmt = $db->prepare($sql);
-          $stmt->execute(array($username));
+          $stmt->execute(array($email));
           $result = $stmt->fetch();
       
-          if ($result['username'] !== null) {
+          if ($result['email'] !== null) {
             //同じユーザー名が存在する。
-            $err_msg = "そのユーザー名は、既に登録されています。";
+            $err_msg = "そのメールアドレスは、既に登録されています。";
             $chk_flg = false;
-          }
-          if ( $chk_flg != false ) {
-            // 入力項目のチェックが問題無い場合。
-            if ($result['email'] !== null) {
-              //同じメールアドレスが存在する。
-              $err_msg = "そのメールアドレスは、既に登録されています。";
-              $chk_flg = false;
-            }
           }
 
     }catch (PDOException $e){
