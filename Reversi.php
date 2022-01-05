@@ -40,21 +40,22 @@ if(isset($_POST['UpdScore'])) {
   //    echo '<br/>';
 //  echo '$_SESSION2:'.$_SESSION['score2'];
 
-          // DBに接続するためのユーザー名やパスワードを指定
-          $dsn = 'pgsql:dbname=sampledb;host=myapp-db';
-          $db = new PDO($dsn, 'sample-user', 'hi2mi4i6');
+		// Herokuサーバー接続用
+		$dbinfo = parse_url(getenv('DATABASE_URL'));
+		$dsn = 'pgsql:host=' . $dbinfo['host'] . ';dbname=' . substr($dbinfo['path'], 1);
+		$db = new PDO($dsn, $dbinfo['user'], $dbinfo['pass']);
 
-		  // オセロは、ゲームコード『２』のデータを更新する。
-          $sql = 'update games set score = ?, updated_at = CURRENT_TIMESTAMP where user_id = ? and gamecode = 2';
+		// オセロは、ゲームコード『２』のデータを更新する。
+        $sql = 'update games set score = ?, updated_at = CURRENT_TIMESTAMP where user_id = ? and gamecode = 2';
 
-          $stmt = $db->prepare($sql);
-          $stmt->execute(array($score,$_SESSION['id']));
-          $stmt = null;
-          $db = null;
+        $stmt = $db->prepare($sql);
+        $stmt->execute(array($score,$_SESSION['id']));
+        $stmt = null;
+        $db = null;
 
-          //ログインしている時
-          $result_msg = "ランキング表に更新されました。";
-          $err_msg = "";
+        //ログインしている時
+        $result_msg = "ランキング表に更新されました。";
+        $err_msg = "";
 
     }catch (PDOException $e){
       echo $e->getMessage();

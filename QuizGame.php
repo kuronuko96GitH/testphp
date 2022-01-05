@@ -40,9 +40,10 @@ if(isset($_POST['UpdScore'])) {
   //    echo '<br/>';
 //  echo '$_SESSION2:'.$_SESSION['score3'];
 
-          // DBに接続するためのユーザー名やパスワードを指定
-          $dsn = 'pgsql:dbname=sampledb;host=myapp-db';
-          $db = new PDO($dsn, 'sample-user', 'hi2mi4i6');
+          // Herokuサーバー接続用
+          $dbinfo = parse_url(getenv('DATABASE_URL'));
+          $dsn = 'pgsql:host=' . $dbinfo['host'] . ';dbname=' . substr($dbinfo['path'], 1);
+          $db = new PDO($dsn, $dbinfo['user'], $dbinfo['pass']);
 
           // クイズゲームは、ゲームコード『３』のデータを更新する。
           $sql = 'update games set score = ?, updated_at = CURRENT_TIMESTAMP where user_id = ? and gamecode = 3';
