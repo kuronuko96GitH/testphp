@@ -77,10 +77,13 @@ if(isset($_POST['signup'])) {
             $err_msg = "そのユーザー名は、既に登録されています。";
             $chk_flg = false;
           }
-          if ($result['email'] !== null) {
-            //同じメールアドレスが存在する。
-            $err_msg = "そのメールアドレスは、既に登録されています。";
-            $chk_flg = false;
+          if ( $chk_flg != false ) {
+            // 入力項目のチェックが問題無い場合。
+            if ($result['email'] !== null) {
+              //同じメールアドレスが存在する。
+              $err_msg = "そのメールアドレスは、既に登録されています。";
+              $chk_flg = false;
+            }
           }
 
     }catch (PDOException $e){
