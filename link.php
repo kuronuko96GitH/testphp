@@ -53,7 +53,7 @@ $title = '';
                                 <p class="card-text">『Ruby』と『JavaScript』で製作した、</p>
                                 <p class="card-text">タイピングゲームなどが遊べます。</p>
                             </div>
-                            <img class="card-img-bottom" src="../assets/img/portfolio01.png" alt="Card image cap">
+                            <img class="card-img-bottom" src="../assets/img/portfolio01.jpg" alt="Card image cap">
                         </div>
                     </div>
                 </div>
