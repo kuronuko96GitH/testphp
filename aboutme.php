@@ -27,7 +27,8 @@ $title = '';
 
                                 <p class="card-text">PHP(7.4)
                                     <br>JavaScript
-                                    <br>Vue.js(フレームワーク)
+                                    <br>Vue.js(2.6)
+                                    <br>(※JavaScriptのフレームワークです)
                                     <br>PostgreSQL (データベース)
                                     <br>
                                     <br>docker(ローカル・開発用の仮想環境)

@@ -30,8 +30,11 @@
 * 
 * PHP(7.4)
 * JavaScript
-* Vue.js(フレームワーク)
-*（※オセロゲームは、Vue.jsで開発してます）
+* 
+* Vue.js(2.6)
+* (※JavaScriptのフレームワークです)
+* (※オセロゲームは、Vue.jsで開発してます)
+* 
 * PostgreSQL (ローカル・本番環境データベース)
 * 
 * GitHub (ソースコード管理)
