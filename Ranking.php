@@ -7,22 +7,35 @@ $cnt = 0;
 <header class="masthead">
   <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
     <div class="d-flex justify-content-center">
-
       <div class="text-white">
-        <div align="center">
-        <p class="display-5">ランキング表</p>
-      </div>
 
-      <div class="col-15 ml-3">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th class="text-white">順位</th>
-                    <th class="text-white">ユーザー</th>
-                    <th class="text-white">スコア</th>
-                </tr>
-            </thead>
-            <tbody>
+        <div align="center">
+<?php
+        if ($_GET['game_code'] === '2') {
+?>
+          <p class="display-6">ランキング表<br>（オセロ）</p>
+<?php
+        } else if ($_GET['game_code'] === '3') {
+?>
+          <p class="display-6">ランキング表<br>（クイズ）</p>
+<?php
+        } else {
+?>
+          <p class="display-6">ランキング表<br>（タイピング）</p>
+<?php
+        }
+?>
+
+          <div class="col-15 ml-3">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-white">順位</th>
+                        <th class="text-white">ユーザー</th>
+                        <th class="text-white">スコア</th>
+                    </tr>
+                </thead>
+                <tbody>
 
 <?php
   // Herokuサーバー接続用
@@ -109,18 +122,21 @@ $cnt = 0;
   }
 ?>
 
-          </tbody>
-        </table>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
+        <h3>
+          <?php for ($x=1; $x <= $max_page; $x++) {
+            // ページ数を表示する。
+          ?> 
+            <a href="?game_code=<?php echo $_GET['game_code'] ?>&page_id=<?php echo $x ?>"><?php echo $x; ?></a>
+          <?php } ?>
+        </h3>
+
       </div>
-
-      <h3>
-        <?php for ($x=1; $x <= $max_page; $x++) {
-          // ページ数を表示する。
-        ?> 
-          <a href="?game_code=<?php echo $_GET['game_code'] ?>&page_id=<?php echo $x ?>"><?php echo $x; ?></a>
-        <?php } ?>
-      </h3>
-
     </div>
   </div>
 </header>
