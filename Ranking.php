@@ -69,7 +69,9 @@ $cnt = 0;
   // SELECT文を変数に格納（上位１０名のみを表示する）
 //  $sql = "SELECT username, score FROM users ORDER BY score DESC LIMIT 10 offset :limitcnt";
 //  $sql = "SELECT username, score FROM games WHERE gamecode = :game_code ORDER BY score DESC LIMIT 10 offset :limitcnt";
-    $sql = "SELECT users.username, games.score FROM users, games WHERE users.id = games.user_id and games.gamecode = :game_code ORDER BY games.score DESC LIMIT 10 offset :limitcnt";
+  $sql = "SELECT users.username, games.score FROM users, games ";
+  $sql .= "WHERE users.id = games.user_id and games.gamecode = :game_code ";
+  $sql .= "ORDER BY games.score DESC, users.id LIMIT 10 offset :limitcnt";
 
   // SQLステートメントを実行し、結果を変数に格納  
   $stmt = $db->prepare($sql);
