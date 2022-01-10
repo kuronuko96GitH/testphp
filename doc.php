@@ -10,7 +10,7 @@ $title = '';
                     <div class="text-center">
                         <div class="card text-white bg-dark mb-3" style="max-width: 50rem;">
                             <div class="card-body">
-                                <p class="card-text">ER図(テーブルレイアウト)</p>
+                                <p class="card-text">ER図(実体関連図)</p>
                             </div>
 
                             <img class="card-img-bottom" src="../assets/img/er_phpgames.png" alt="Card image cap">
